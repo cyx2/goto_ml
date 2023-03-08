@@ -123,7 +123,7 @@ class GoToML:
             self.test_data,
         )
 
-        EPOCHS = 500  # epoch
+        EPOCHS = 100  # epoch
         LR = 5  # learning rate
         BATCH_SIZE = 5  # batch size for training
 
@@ -193,6 +193,10 @@ class GoToML:
             print(
                 "We think you should visit the "
                 f"{self.class_map[class_index]} page."
+            ) if max(max(output.softmax(dim=1))) > torch.tensor(
+                0.5
+            ) else print(
+                "Sorry, we don't know which page you should visit."
             )
 
             return
@@ -261,4 +265,6 @@ if __name__ == "__main__":
     goto_ml = GoToML()
 
     goto_ml.train_and_evaluate()
-    model = goto_ml.model
+
+    goto_ml.predict("charlie")
+    goto_ml.predict("ip address")
