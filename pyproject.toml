@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "goto_ml"
+version = "1.0"
+description = ""
+authors = ["Charlie Xu <charlie.xu@mongodb.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^1.5.3"
+flake8 = "^6.0.0"
+black = "^23.1.0"
+mypy = "^1.1.1"
+scikit-learn = "^1.2.1"
+torch = "^1.13.1"
+tqdm = "^4.65.0"
+matplotlib = "^3.7.1"
+torchtext = "^0.14.1"
+torchdata = "^0.5.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

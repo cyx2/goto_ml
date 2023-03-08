@@ -1,0 +1,58 @@
+1,clusters
+1,my clusters
+1,deployments
+1,my deployments
+1,databases
+1,my databases
+1,project databases
+1,project clusters
+1,project deployments
+2,database security
+2,database users
+2,my users
+2,database credentials
+2,my credentials
+2,credentials
+2,add user
+2,add credentials
+3,network security
+3,network access
+3,ip address
+3,network ip
+3,ip access
+4,query multiple sources
+4,multiple data sources
+4,s3 automated extraction
+4,s3 extraction
+4,query with sql
+4,sql query
+4,federated database
+4,data federation
+5,search
+5,atlas search
+5,search index
+6,advanced security
+6,ldap authentication
+6,ldap authorization
+6,encryption at rest
+6,bring your own key
+6,byok
+6,database auditing
+6,x509
+6,advanced security settings
+7,data lake
+7,data lake pipeline
+7,object storage
+7,query s3
+7,object storage query
+8,billing
+8,cost management
+8,view my bill
+8,view my invoice
+8,view invoice
+8,view bill
+8,add payment
+8,change payment
+8,current invoice
+8,credits
+8,atlas credits

@@ -1,0 +1,1 @@
+This repo implements the pytorch text classifier tutorial to classify search strings against urls on MongoDB Cloud.
