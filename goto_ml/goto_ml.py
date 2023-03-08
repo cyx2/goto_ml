@@ -204,15 +204,22 @@ class GoToML:
 
             class_index = output.argmax(1).item() + 1
 
+            confidence_tensor = torch.max(output.softmax(dim=1))
+            minimum_threshold_tensor = torch.tensor(0.5)
+
+            if confidence_tensor > minimum_threshold_tensor:
+                log_text = (
+                    "We think you should visit the "
+                    f"{self.class_map[class_index]} page."
+                )
+            else:
+                log_text = "Sorry, we don't know which page you should visit."
+
             LOG.info(
-                "We think you should visit the "
-                f"{self.class_map[class_index]} page.",
+                log_text,
                 prompt=text,
-            ) if max(max(output.softmax(dim=1))) > torch.tensor(
-                0.5
-            ) else LOG.warn(
-                "Sorry, we don't know which page you should visit.",
-                prompt=text,
+                confidence=confidence_tensor,
+                minimum_confidence=minimum_threshold_tensor,
             )
 
             return
