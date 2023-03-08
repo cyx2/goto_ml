@@ -38,6 +38,10 @@ class GoToML:
             self.test_data,
         ) = self._initialize_data()
 
+        self.class_map = self._initialize_classes(
+            [self.train_data, self.test_data]
+        )
+
         (
             self.vocab,
             self.text_pipeline,
@@ -58,6 +62,29 @@ class GoToML:
 
         return DEVICE, tokenizer, train_data, test_data
 
+    def _initialize_classes(self, dataframes):
+        class_map = {}
+        dict_index = 0
+
+        for dataframe in dataframes:
+            dataframe_index = -1
+
+            for url in dataframe["url"]:
+                dataframe_index += 1
+
+                if url in class_map.values():
+                    key = list(
+                        filter(lambda x: class_map[x] == url, class_map)
+                    )[0]
+                    dataframe.at[dataframe_index, "url"] = key
+                    continue
+                else:
+                    dict_index += 1
+                    class_map[dict_index] = url
+                    dataframe.at[dataframe_index, "url"] = dict_index
+
+        return class_map
+
     def _initialize_vocabulary(self):
         train_data, tokenizer = self.train_data, self.tokenizer
 
@@ -75,17 +102,6 @@ class GoToML:
         return vocab, text_pipeline, label_pipeline
 
     def _initialize_model(self):
-        self.class_map = {
-            1: "/clusters",
-            2: "/security/database/users",
-            3: "/security/network/accessList",
-            4: "/dataFederation",
-            5: "/clusters/atlasSearch",
-            6: "/security/advanced",
-            7: "/dataLake",
-            8: "/billing/overview",
-        }
-
         train_data, vocab = self.train_data, self.vocab
         train_iter = train_data.itertuples()
 
@@ -107,9 +123,9 @@ class GoToML:
             self.test_data,
         )
 
-        EPOCHS = 1000  # epoch
+        EPOCHS = 500  # epoch
         LR = 5  # learning rate
-        BATCH_SIZE = 64  # batch size for training
+        BATCH_SIZE = 5  # batch size for training
 
         criterion = torch.nn.CrossEntropyLoss()
         optimizer = torch.optim.SGD(model.parameters(), lr=LR)

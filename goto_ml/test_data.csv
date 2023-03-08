@@ -1,16 +1,17 @@
-1,clusters
-1,my clusters
-2,database security
-2,database users
-3,network security
-3,network access
-4,query multiple sources
-4,multiple data sources
-5,search
-5,atlas search
-6,advanced security
-6,ldap authentication
-7,data lake
-7,data lake pipeline
-8,billing
-8,cost management
+url,text
+/clusters,clusters
+/clusters,my clusters
+/security/database/users,database security
+/security/database/users,database users
+/security/network/accessList,network security
+/security/network/accessList,network access
+/dataFederation,query multiple sources
+/dataFederation,multiple data sources
+/clusters/atlasSearch,search
+/clusters/atlasSearch,atlas search
+/security/advanced,advanced security
+/security/advanced,ldap authentication
+/dataLake,data lake
+/dataLake,data lake pipeline
+/billing/overview,billing
+/billing/overview,cost management

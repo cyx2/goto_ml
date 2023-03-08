@@ -1,58 +1,59 @@
-1,clusters
-1,my clusters
-1,deployments
-1,my deployments
-1,databases
-1,my databases
-1,project databases
-1,project clusters
-1,project deployments
-2,database security
-2,database users
-2,my users
-2,database credentials
-2,my credentials
-2,credentials
-2,add user
-2,add credentials
-3,network security
-3,network access
-3,ip address
-3,network ip
-3,ip access
-4,query multiple sources
-4,multiple data sources
-4,s3 automated extraction
-4,s3 extraction
-4,query with sql
-4,sql query
-4,federated database
-4,data federation
-5,search
-5,atlas search
-5,search index
-6,advanced security
-6,ldap authentication
-6,ldap authorization
-6,encryption at rest
-6,bring your own key
-6,byok
-6,database auditing
-6,x509
-6,advanced security settings
-7,data lake
-7,data lake pipeline
-7,object storage
-7,query s3
-7,object storage query
-8,billing
-8,cost management
-8,view my bill
-8,view my invoice
-8,view invoice
-8,view bill
-8,add payment
-8,change payment
-8,current invoice
-8,credits
-8,atlas credits
+url,text
+/clusters,clusters
+/clusters,my clusters
+/clusters,deployments
+/clusters,my deployments
+/clusters,databases
+/clusters,my databases
+/clusters,project databases
+/clusters,project clusters
+/clusters,project deployments
+/security/database/users,database security
+/security/database/users,database users
+/security/database/users,my users
+/security/database/users,database credentials
+/security/database/users,my credentials
+/security/database/users,credentials
+/security/database/users,add user
+/security/database/users,add credentials
+/security/network/accessList,network security
+/security/network/accessList,network access
+/security/network/accessList,ip address
+/security/network/accessList,network ip
+/security/network/accessList,ip access
+/dataFederation,query multiple sources
+/dataFederation,multiple data sources
+/dataFederation,s3 automated extraction
+/dataFederation,s3 extraction
+/dataFederation,query with sql
+/dataFederation,sql query
+/dataFederation,federated database
+/dataFederation,data federation
+/clusters/atlasSearch,search
+/clusters/atlasSearch,atlas search
+/clusters/atlasSearch,search index
+/security/advanced,advanced security
+/security/advanced,ldap authentication
+/security/advanced,ldap authorization
+/security/advanced,encryption at rest
+/security/advanced,bring your own key
+/security/advanced,byok
+/security/advanced,database auditing
+/security/advanced,x509
+/security/advanced,advanced security settings
+/dataLake,data lake
+/dataLake,data lake pipeline
+/dataLake,object storage
+/dataLake,query s3
+/dataLake,object storage query
+/billing/overview,billing
+/billing/overview,cost management
+/billing/overview,view my bill
+/billing/overview,view my invoice
+/billing/overview,view invoice
+/billing/overview,view bill
+/billing/overview,add payment
+/billing/overview,change payment
+/billing/overview,current invoice
+/billing/overview,credits
+/billing/overview,atlas credits
