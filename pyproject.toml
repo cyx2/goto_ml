@@ -17,6 +17,7 @@ tqdm = "^4.65.0"
 matplotlib = "^3.7.1"
 torchtext = "^0.14.1"
 torchdata = "^0.5.1"
+structlog = "^22.3.0"
 
 
 [build-system]

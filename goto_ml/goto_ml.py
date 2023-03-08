@@ -1,7 +1,9 @@
 import os
+import sys
 import time
 
 import pandas as pd
+import structlog
 import torch
 from torch import nn
 from torch.utils.data import DataLoader
@@ -9,6 +11,8 @@ from torch.utils.data.dataset import random_split
 from torchtext.data.functional import to_map_style_dataset
 from torchtext.data.utils import get_tokenizer
 from torchtext.vocab import build_vocab_from_iterator
+
+LOG = structlog.get_logger()
 
 
 class TextClassificationModel(nn.Module):
@@ -30,7 +34,7 @@ class TextClassificationModel(nn.Module):
 
 
 class GoToML:
-    def __init__(self) -> None:
+    def __init__(self, train: bool) -> None:
         (
             self.DEVICE,
             self.tokenizer,
@@ -49,6 +53,16 @@ class GoToML:
         ) = self._initialize_vocabulary()
 
         self.model = self._initialize_model()
+        if train:
+            self.train_and_evaluate()
+            torch.save(self.model.state_dict(), "goto_ml.pt")
+        else:
+            try:
+                self.model.load_state_dict(torch.load("goto_ml.pt"))
+                self.model.eval()
+            except FileNotFoundError as e:
+                LOG.error("Pre-trained model state not found.", error=e)
+                sys.exit(1)
 
         pass
 
@@ -179,24 +193,26 @@ class GoToML:
             )
             print("-" * 59)
 
-        print("Checking the results of test dataset.")
+        LOG.info("Checking the results of test dataset.")
         accu_test = self._evaluate(test_dataloader, criterion)
-        print("test accuracy {:8.3f}".format(accu_test))
+        LOG.info("test accuracy {:8.3f}".format(accu_test))
 
     def predict(self, text):
         with torch.no_grad():
-            text = torch.tensor(self.text_pipeline(text))
-            output = self.model(text, torch.tensor([0]))
+            text_tensor = torch.tensor(self.text_pipeline(text))
+            output = self.model(text_tensor, torch.tensor([0]))
 
             class_index = output.argmax(1).item() + 1
 
-            print(
+            LOG.info(
                 "We think you should visit the "
-                f"{self.class_map[class_index]} page."
+                f"{self.class_map[class_index]} page.",
+                prompt=text,
             ) if max(max(output.softmax(dim=1))) > torch.tensor(
                 0.5
-            ) else print(
-                "Sorry, we don't know which page you should visit."
+            ) else LOG.warn(
+                "Sorry, we don't know which page you should visit.",
+                prompt=text,
             )
 
             return
@@ -216,7 +232,7 @@ class GoToML:
             total_acc += (predicted_label.argmax(1) == label).sum().item()
             total_count += label.size(0)
             if idx % log_interval == 0 and idx > 0:
-                print(
+                LOG.info(
                     "| epoch {:3d} | {:5d}/{:5d} batches "
                     "| accuracy {:8.3f}".format(
                         epoch, idx, len(dataloader), total_acc / total_count
@@ -262,9 +278,7 @@ class GoToML:
 
 
 if __name__ == "__main__":
-    goto_ml = GoToML()
-
-    goto_ml.train_and_evaluate()
+    goto_ml = GoToML(train=False)
 
     goto_ml.predict("charlie")
     goto_ml.predict("ip address")
